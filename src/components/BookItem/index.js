@@ -4,12 +4,17 @@ import BookModal from '../BookModal';
 import {useDispatch, useSelector} from 'react-redux';
 import {bookActions, bookState} from '../../store/books';
 import {PortalWithState} from 'react-portal';
+import { editBookSelector, editBookState } from '../../store/editBook';
+import { useState } from 'react';
+import _ from 'lodash';
+import { api } from '../../api';
 
 // eslint-disable-next-line react/prop-types
 const BookItem = ({title, count, author, id}) => {
   const dispatch = useDispatch();
 
   const bookSelector = useSelector(bookState);
+  const editBooks = useSelector(editBookState);
 
   const {showModal, selectedBook} = bookSelector;
 
@@ -21,11 +26,28 @@ const BookItem = ({title, count, author, id}) => {
     dispatch(bookActions.openModal());
   };
 
-  const saveData = () => {
-    console.log('submit');
+  const saveData = async (e) => {
+    e.preventDefault();
+    await api.put(`/books/${selectedBook.id}`, JSON.stringify(selectedBook), {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
   };
 
-  const handleInputChange = () => {};
+  const handleInputChange = (e) => {
+    const selectors = e.target.name.split(' ')
+    const newObj = _.cloneDeep(selectedBook);
+    if(selectors.length>1){
+      console.log(selectors, e.target);
+      const item = newObj[selectors[0]][e.target.dataset.index]
+      item[selectors[1]]= e.target.value
+    } else{
+      newObj[e.target.name] = e.target.dataset.array ? e.target.value.split(',') : e.target.value;
+    }
+    dispatch(bookActions.chooseBook(newObj));
+    console.log(e.target.name,e.target.value,"s");
+  };
 
   return (
     <PortalWithState closeOnOutsideClick closeOnEsc>
@@ -60,37 +82,62 @@ const BookItem = ({title, count, author, id}) => {
               <div className={styles.modalWrapper}>
                 <p className={styles.edit}>Edit Book</p>
                 <form onSubmit={saveData} className={styles.form}>
-                  {/*<input*/}
-                  {/*  value={selectedBook.id}*/}
-                  {/*  onChange={handleInputChange}*/}
-                  {/*  className={styles.input}*/}
-                  {/*/>*/}
-                  {/*<input*/}
-                  {/*    /!* eslint-disable-next-line react/prop-types *!/*/}
-                  {/*  value={selectedBook.authors.map((author) => author.name)}*/}
-                  {/*  onChange={handleInputChange}*/}
-                  {/*  className={styles.input}*/}
-                  {/*/>*/}
-                  {/*<input*/}
-                  {/*  value={selectedBook.id}*/}
-                  {/*  onChange={handleInputChange}*/}
-                  {/*  className={styles.input}*/}
-                  {/*/>*/}
-                  {/*<input*/}
-                  {/*  value={selectedBook.id}*/}
-                  {/*  onChange={handleInputChange}*/}
-                  {/*  className={styles.input}*/}
-                  {/*/>*/}
-                  {/*<input*/}
-                  {/*  value={selectedBook.id}*/}
-                  {/*  onChange={handleInputChange}*/}
-                  {/*  className={styles.input}*/}
-                  {/*/>*/}
-                  {/*<input*/}
-                  {/*  value={selectedBook.id}*/}
-                  {/*  onChange={handleInputChange}*/}
-                  {/*  className={styles.input}*/}
-                  {/*/>*/}
+                  <input
+                    name='id'
+                    value={selectedBook.id}
+                    onChange={handleInputChange}
+                    className={styles.input}
+                  />
+                  {selectedBook?.authors?.map((author, index) => <input
+                   key={index}
+                    name="authors name"
+                    data-index={index}
+                    // eslint-disable-next-line react/prop-types
+                    value={author.name}
+                    onChange={handleInputChange}
+                    className={styles.input}
+                  /> 
+                )}
+                {selectedBook?.authors?.map((author, index) => <input
+                   key={index}
+                    name="authors birth_year"
+                    data-index={index}
+                    // eslint-disable-next-line react/prop-types
+                    value={author.birth_year}
+                    onChange={handleInputChange}
+                    className={styles.input}
+                  /> 
+                )}
+                {selectedBook?.authors?.map((author, index) => <input
+                   key={index}
+                    name="authors death_year"
+                    data-index={index}
+                    // eslint-disable-next-line react/prop-types
+                    value={author.death_year}
+                    onChange={handleInputChange}
+                    className={styles.input}
+                  /> 
+                )}
+                  <input
+                  name='download_count'
+                    value={selectedBook.download_count}
+                    onChange={handleInputChange}
+                    className={styles.input}
+                  />
+                    <input
+                  name='bookshelves'
+                  data-array={1}
+                    value={selectedBook.bookshelves}
+                    onChange={handleInputChange}
+                    className={styles.input}
+                  />
+                    <input
+                  name='mediaType'
+                    value={selectedBook.id}
+                    onChange={handleInputChange}
+                    className={styles.input}
+                  />
+                  <button type='submit'>Submit</button>
                 </form>
               </div>
             </div>,
