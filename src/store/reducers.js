@@ -1,2 +1,2 @@
 export {default as books} from './books';
-export {default as editBooks} from './editBooks';
+export {default as editBook} from './editBook';

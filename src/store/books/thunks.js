@@ -8,7 +8,7 @@ export const getBookCategories = createAsyncThunk(
   `${BookReducer}/get-subjects`,
   async (_, thunkAPI) => {
     try {
-      const res = await api().get(`/subjects`);
+      const res = await api.get(`/subjects`);
       return thunkAPI.fulfillWithValue(res.data);
     } catch (error) {
       const {message} = error;
@@ -19,13 +19,13 @@ export const getBookCategories = createAsyncThunk(
 
 export const getBooks = createAsyncThunk(
   `${BookReducer}/get-books`,
-  async ({subject}, thunkAPI) => {
+  async (subject, {fulfillWithValue, rejectWithValue}) => {
     try {
-      const res = await api().get(`/books?subjects_like=${subject}`);
-      return thunkAPI.fulfillWithValue(res.data);
+      const res = await api.get(`/books?subjects_like=${subject}`);
+      return fulfillWithValue(res.data);
     } catch (error) {
       const {message} = error;
-      return thunkAPI.rejectWithValue({error: message});
+      return rejectWithValue({error: message});
     }
   },
 );

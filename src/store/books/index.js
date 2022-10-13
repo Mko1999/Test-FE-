@@ -1,73 +1,71 @@
 import {createSelector, createSlice} from '@reduxjs/toolkit';
 import * as bookThunks from './thunks';
 import {BookReducer} from '../constants';
+import {getBookCategories} from './thunks';
 
 const initialState = {
   subjects: [],
+  loading: false,
   selectedSubject: '',
   books: [],
   selectedBook: {},
   showModal: false,
-  modalContext: '',
 };
 
 export const BooksSlice = createSlice({
   name: BookReducer,
   initialState,
   reducers: {
-    subjects: (state, action) => {
-      return {
-        ...state,
-        subjects: action.payload,
-      };
-    },
-    subjectChange: (state, action) => {
-      return {
-        ...state,
-        [action.payload.name]: action.payload.value,
-      };
-    },
-    books: (state, action) => {
-      state.books = action.payload;
-    },
-    bookSelect: (state, action) => {
-      state.selectedBook = action.payload;
-      state.showModal = true;
-      state.modalContext = BOOK_SELECT;
-    },
-    toggleModal: (state, action) => {
-      state.showModal = !state.showModal;
-      if (state.showModal) {
-        state.modalContext = BOOK_ADD;
+    chooseSubject(state, action) {
+      state.selectedSubject = action.payload;
+      if (action.payload === null) {
+        state.selectedSubject = '';
       }
     },
+    chooseBook(state, action) {
+      state.selectedBook = action.payload;
+    },
+    openModal(state) {
+      state.showModal = true;
+    },
+    closeModal(state) {
+      state.showModal = false;
+      state.selectedBook = null;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(bookThunks.getBookCategories.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(bookThunks.getBookCategories.fulfilled, (state, action) => {
+      state.subjects = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(bookThunks.getBookCategories.rejected, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(bookThunks.getBooks.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(bookThunks.getBooks.fulfilled, (state, action) => {
+      state.books = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(bookThunks.getBooks.rejected, (state, action) => {
+      state.loading = false;
+    });
   },
 });
-
-// export const BookCategories = () => async (dispatch) => {
-//   const res = await api.get('/subjects').catch((error) => console.log(error));
-//   dispatch(subjects(res.data));
-// };
-
-// export const FetchBooks = (subject) => async (dispatch) => {
-//   const res = await api
-//     .get(`/books?subjects_like=${subject}`)
-//     .catch((error) => console.log(error));
-//   dispatch(books(res.data));
-// };
 
 const {reducer, actions} = BooksSlice;
 
 export const bookSelector = (state) => state;
 
-export const bookState = createSelector(bookSelector, (state) => state);
+export const bookState = createSelector(bookSelector, (state) => state.books);
 
 export const bookActions = {
   ...actions,
   ...bookThunks,
 };
 
-export const {subjects, subjectChange, books, bookSelect, toggleModal} =
-  BooksSlice.actions;
-
-export default BooksSlice.reducer;
+export default reducer;

@@ -1,8 +1,33 @@
-import React from 'react';
 import styles from './styles.module.scss';
+import {useDispatch, useSelector} from 'react-redux';
+import {bookState} from '../../store/books';
+import BookItem from '../BookItem';
+import {useState} from 'react';
 
 const BookCollections = () => {
-  return <div className={styles.wrapper}>Book Collection</div>;
+  const dispatch = useDispatch();
+
+  const bookSelector = useSelector(bookState);
+
+  const {books} = bookSelector;
+
+  const [showModal, setShowModal] = useState(false);
+
+  const renderBookItem =
+    books.length > 0 &&
+    books.map((item) => {
+      return (
+        <BookItem
+          key={item.id}
+          id={item.id}
+          count={item.download_count}
+          title={item.title}
+          author={item.authors.map((author) => author.name)}
+        />
+      );
+    });
+
+  return <div className={styles.wrapper}>{renderBookItem}</div>;
 };
 
 export default BookCollections;

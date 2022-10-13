@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSelector, createSlice} from '@reduxjs/toolkit';
 import {EditBookReducer} from '../constants';
 
 const initialState = {
@@ -13,35 +13,10 @@ const initialState = {
   title: '',
 };
 
-export const EditBooksSlice = createSlice({
+export const EditBookSlice = createSlice({
   name: EditBookReducer,
   initialState,
   reducers: {
-    statePopulate: (state, action) => {
-      const {
-        title,
-        id,
-        download_count,
-        authors,
-        bookshelves,
-        languages,
-        media_type,
-        subjects,
-        formats,
-      } = action.payload;
-      return {
-        ...state,
-        title,
-        download_count,
-        authors,
-        bookshelves,
-        languages,
-        media_type,
-        subjects,
-        formats,
-        id,
-      };
-    },
     updateChange: (state, action) => {
       const {payload} = action;
       return {
@@ -72,9 +47,17 @@ export const EditBooksSlice = createSlice({
   },
 });
 
-export const StatePopulate = (book) => (dispatch) => {
-  dispatch(statePopulate(book));
+const {reducer, actions} = EditBookSlice;
+
+export const editBookSelector = (state) => state;
+
+export const editBookState = createSelector(
+  editBookSelector,
+  (state) => state.editBook,
+);
+
+export const editBookActions = {
+  ...actions,
 };
 
-export const {statePopulate, updateChange, cleanState} = EditBooksSlice.actions;
-export default EditBooksSlice.reducer;
+export default reducer;

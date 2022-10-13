@@ -1,11 +1,13 @@
 import './App.css';
-import {BookSelect, Header} from './components';
+import {BookCollections, BookModal, BookSelect, Header} from './components';
 
 function App() {
   return (
     <div className="App">
       <Header />
       <BookSelect />
+      <BookCollections />
+      {/*<BookModal />*/}
     </div>
   );
 }

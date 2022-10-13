@@ -1,0 +1,103 @@
+.button{
+  background: transparent;
+}
+
+.wrapper{
+  margin-top: 24px;
+  border-radius: 6px;
+  border: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  background: aliceblue;
+  cursor: pointer;
+
+
+  .titleWrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+    .title{
+        font-size: 14px;
+        text-decoration: underline;
+    }
+    .value{
+        font-size: 24px;
+        color: coral;
+
+      @media screen and (max-width: 768px) {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .authorWrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+
+    .title{
+      font-size: 14px;
+      text-decoration: underline;
+    }
+    .value{
+      font-size: 24px;
+      color: coral;
+
+      @media screen and (max-width: 768px) {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .downloadsWrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+
+    .title{
+      font-size: 14px;
+      text-decoration: underline;
+    }
+    .value{
+      font-size: 24px;
+      color: coral;
+
+      @media screen and (max-width: 768px) {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+.modal{
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  background: #1a1a1a;
+
+  .close{
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    font-size: 32px;
+    background: transparent;
+  }
+
+  .modalWrapper{
+
+    .edit{
+      font-size: 24px;
+      color: coral;
+    }
+
+    .form{
+
+    }
+  }
+}
