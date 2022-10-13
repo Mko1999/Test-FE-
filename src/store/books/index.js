@@ -1,7 +1,6 @@
 import {createSelector, createSlice} from '@reduxjs/toolkit';
 import * as bookThunks from './thunks';
 import {BookReducer} from '../constants';
-import {getBookCategories} from './thunks';
 
 const initialState = {
   subjects: [],

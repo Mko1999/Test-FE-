@@ -3,7 +3,6 @@
 }
 
 .wrapper{
-  margin-top: 24px;
   border-radius: 6px;
   border: 1px solid lightgray;
   display: flex;
@@ -79,7 +78,7 @@
   z-index: 30;
   top: 0;
   left: 0;
-  background: #1a1a1a;
+  //background: #1a1a1a;
 
   .close{
     position: absolute;
@@ -90,14 +89,17 @@
   }
 
   .modalWrapper{
+    position: absolute;
+    top: 24px;
+    left: 24px;
 
     .edit{
       font-size: 24px;
-      color: coral;
+      //color: coral;
     }
 
     .form{
-
+        margin-top: 24px;
     }
   }
 }

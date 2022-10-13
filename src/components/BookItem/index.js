@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import BookModal from '../BookModal';
 import {useDispatch, useSelector} from 'react-redux';
 import {bookActions, bookState} from '../../store/books';
-import {editBookState} from '../../store/editBook';
 import {PortalWithState} from 'react-portal';
 
 // eslint-disable-next-line react/prop-types
@@ -13,8 +12,6 @@ const BookItem = ({title, count, author, id}) => {
   const bookSelector = useSelector(bookState);
 
   const {showModal, selectedBook} = bookSelector;
-
-  const editBookSelector = useSelector(editBookState);
 
   const {books} = useSelector(bookState);
 
@@ -27,6 +24,8 @@ const BookItem = ({title, count, author, id}) => {
   const saveData = () => {
     console.log('submit');
   };
+
+  const handleInputChange = () => {};
 
   return (
     <PortalWithState closeOnOutsideClick closeOnEsc>
@@ -61,7 +60,37 @@ const BookItem = ({title, count, author, id}) => {
               <div className={styles.modalWrapper}>
                 <p className={styles.edit}>Edit Book</p>
                 <form onSubmit={saveData} className={styles.form}>
-                  form
+                  {/*<input*/}
+                  {/*  value={selectedBook.id}*/}
+                  {/*  onChange={handleInputChange}*/}
+                  {/*  className={styles.input}*/}
+                  {/*/>*/}
+                  {/*<input*/}
+                  {/*    /!* eslint-disable-next-line react/prop-types *!/*/}
+                  {/*  value={selectedBook.authors.map((author) => author.name)}*/}
+                  {/*  onChange={handleInputChange}*/}
+                  {/*  className={styles.input}*/}
+                  {/*/>*/}
+                  {/*<input*/}
+                  {/*  value={selectedBook.id}*/}
+                  {/*  onChange={handleInputChange}*/}
+                  {/*  className={styles.input}*/}
+                  {/*/>*/}
+                  {/*<input*/}
+                  {/*  value={selectedBook.id}*/}
+                  {/*  onChange={handleInputChange}*/}
+                  {/*  className={styles.input}*/}
+                  {/*/>*/}
+                  {/*<input*/}
+                  {/*  value={selectedBook.id}*/}
+                  {/*  onChange={handleInputChange}*/}
+                  {/*  className={styles.input}*/}
+                  {/*/>*/}
+                  {/*<input*/}
+                  {/*  value={selectedBook.id}*/}
+                  {/*  onChange={handleInputChange}*/}
+                  {/*  className={styles.input}*/}
+                  {/*/>*/}
                 </form>
               </div>
             </div>,
@@ -75,7 +104,7 @@ const BookItem = ({title, count, author, id}) => {
 BookModal.propTypes = {
   title: PropTypes.string,
   count: PropTypes.number,
-  author: PropTypes.string,
+  author: PropTypes.any,
   id: PropTypes.string,
 };
 
