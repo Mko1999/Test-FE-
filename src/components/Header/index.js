@@ -1,20 +1,16 @@
 import React from 'react';
 import styles from './Header.module.scss';
-import {useDispatch} from 'react-redux';
+
 import {PortalWithState} from 'react-portal';
-import {AddBookModal, EditBookModal} from '../index';
+import {AddBookModal} from '../index';
 
 const Header = () => {
-  const dispatch = useDispatch();
-
-  const addBook = () => {};
-
   return (
     <PortalWithState closeOnOutsideClick closeOnEsc>
-      {({openPortal, closePortal, isOpen, portal}) => (
+      {({openPortal, closePortal, portal}) => (
         <>
-          <div role="button" onClick={openPortal} className={styles.header}>
-            <button onClick={addBook} className={styles.button}>
+          <div className={styles.header}>
+            <button onClick={openPortal} className={styles.button}>
               Add Book
             </button>
           </div>

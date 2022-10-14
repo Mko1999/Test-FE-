@@ -143,15 +143,7 @@ const AddBookModal = () => {
           value={inputValues.subjects}
           onChange={handleInputChange}
         />
-        <label htmlFor="formats" className={styles.label}>
-          Formats
-        </label>
-        <input
-          name="formats"
-          className={styles.input}
-          value={inputValues.formats}
-          onChange={handleInputChange}
-        />
+
         <button className={styles.submitButton} type="submit">
           Submit
         </button>

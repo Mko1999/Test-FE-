@@ -15,9 +15,11 @@ const BookItem = ({title, count, author, id}) => {
     dispatch(bookActions.chooseBook(selectedItem));
   };
 
+  const shortenedTitle = title.length > 20 ? title.slice(0, 20) : title;
+
   return (
     <PortalWithState closeOnOutsideClick closeOnEsc>
-      {({openPortal, closePortal, isOpen, portal}) => (
+      {({openPortal, closePortal, portal}) => (
         <>
           <button className={styles.button} onClick={openPortal}>
             <div
@@ -26,7 +28,7 @@ const BookItem = ({title, count, author, id}) => {
               className={styles.wrapper}>
               <div className={styles.titleWrapper}>
                 <p className={styles.title}>Title</p>
-                <p className={styles.value}>{title}</p>
+                <p className={styles.value}>{shortenedTitle}</p>
               </div>
               <div className={styles.authorWrapper}>
                 <p className={styles.title}>Author</p>
