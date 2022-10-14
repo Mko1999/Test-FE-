@@ -1,10 +1,11 @@
 import styles from './styles.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {bookActions, bookState} from '../../store/books';
-import {api} from '../../api';
+
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import {toast} from 'react-toastify';
+import {MAIN_URL} from '../../constants';
 
 const EditBookModal = ({id}) => {
   const dispatch = useDispatch();
@@ -16,8 +17,12 @@ const EditBookModal = ({id}) => {
   const saveData = async (e) => {
     e.preventDefault();
     try {
-      await api.put(`/books/${selectedBook.id}`, {
-        body: selectedBook,
+      await fetch(`${MAIN_URL}/books/${selectedBook.id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'PUT',
+        body: JSON.stringify(selectedBook),
       });
       toast.success('Successfully Edited !');
     } catch (e) {

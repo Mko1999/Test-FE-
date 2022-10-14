@@ -9,6 +9,11 @@
       display: flex;
       flex-direction: column;
 
+      .textarea{
+        margin-top: 6px;
+        background:  rgba(250, 235, 215, 0.7);
+      }
+
       .label{
         margin: 4px 0;
       }

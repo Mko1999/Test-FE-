@@ -1,22 +1,32 @@
 import React, {useState} from 'react';
 import styles from './styles.module.scss';
-import {api} from '../../api';
+
 import {toast} from 'react-toastify';
 import {useSelector} from 'react-redux';
 import {editBookState} from '../../store/editBook';
+import {MAIN_URL} from '../../constants';
+import PropTypes from 'prop-types';
 
-const AddBookModal = () => {
+const AddBookModal = ({closePortal}) => {
   const addBook = useSelector(editBookState);
 
   const [inputValues, setInputValues] = useState(addBook);
 
   const saveData = async (e) => {
     e.preventDefault();
+    if (!inputValues.title || !inputValues.id) {
+      return;
+    }
     try {
-      await api.post(`/books`, {
-        body: inputValues,
+      await fetch(`${MAIN_URL}/books/`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify(inputValues),
       });
-      toast.success('Successfully Created!');
+      toast.success('Successfully Added !');
+      closePortal();
     } catch (e) {
       toast.error(e.message);
     }
@@ -31,11 +41,31 @@ const AddBookModal = () => {
       if (subKey) {
         if (Array.isArray(newObj[key])) {
           newObj[key][0][subKey] = e.target.value;
+        } else if (typeof newObj[key] === 'object') {
+          const obj = {};
+          const newValues = e.target.value.split('\n');
+          const keys = Object.keys(newObj[key]);
+          const values = Object.values(newObj[key]);
+          if (subKey === 'values') {
+            for (const [index, key] of keys.entries()) {
+              obj[key] = newValues[index]?.trim() || '';
+            }
+          } else {
+            for (const [index, key] of newValues.entries()) {
+              obj[key] = values[index]?.trim() || '';
+            }
+          }
+          newObj[key] = obj;
         } else {
           newObj[key][subKey] = e.target.value;
         }
       } else {
-        newObj[key] = e.target.value;
+        console.log(newObj, key);
+        if (Array.isArray(newObj[key])) {
+          newObj[key] = e.target.value.split(',');
+        } else {
+          newObj[key] = e.target.value;
+        }
       }
       setInputValues(newObj);
     }
@@ -141,6 +171,22 @@ const AddBookModal = () => {
           value={inputValues.subjects}
           onChange={handleInputChange}
         />
+        <label htmlFor="formats keys" className={styles.label}>
+          URL Keys
+        </label>
+        <textarea
+          className={styles.textarea}
+          value={Object.keys(inputValues.formats).join(`\n`)}
+          name="formats keys"
+          onChange={handleInputChange}></textarea>
+        <label htmlFor="formats values" className={styles.label}>
+          URL Values
+        </label>
+        <textarea
+          className={styles.textarea}
+          value={Object.values(inputValues.formats).join(`\n`)}
+          name="formats values"
+          onChange={handleInputChange}></textarea>
 
         <button className={styles.submitButton} type="submit">
           Submit
@@ -148,6 +194,10 @@ const AddBookModal = () => {
       </form>
     </div>
   );
+};
+
+AddBookModal.propTypes = {
+  closePortal: PropTypes.func,
 };
 
 export default AddBookModal;

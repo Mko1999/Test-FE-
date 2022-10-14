@@ -22,7 +22,7 @@ const Header = () => {
                   X
                 </button>
               </div>
-              <AddBookModal />,
+              <AddBookModal closePortal={closePortal} />,
             </div>,
           )}
         </>
