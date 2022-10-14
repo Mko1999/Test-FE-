@@ -1,7 +1,7 @@
 .header{
   width: 100%;
   background: coral;
-  height: 50px;
+  padding: 15px 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,5 +16,36 @@
     &:hover{
       color: #111314;
     }
+  }
+}
+
+
+.modal{
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  position: absolute;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  background: azure;
+
+  .modalHeader{
+    margin-top: 24px;
+    padding: 0 24px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .add{
+      font-size: 28px;
+
+    }
+  }
+
+  .close{
+    font-size: 32px;
+    background: transparent;
   }
 }

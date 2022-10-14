@@ -3,7 +3,7 @@ import {EditBookReducer} from '../constants';
 
 const initialState = {
   id: '',
-  authors: [],
+  authors: [{birth_year: null, death_year: null, name: ''}],
   bookshelves: [],
   download_count: '',
   formats: {},

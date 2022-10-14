@@ -26,7 +26,7 @@ const BookSelect = () => {
 
   const bookSelector = useSelector(bookState);
 
-  const {subjects, selectedSubject} = bookSelector;
+  const {subjects} = bookSelector;
 
   const options = subjects.map((item) => ({
     value: item,
@@ -36,7 +36,6 @@ const BookSelect = () => {
   const handleChange = (item) => {
     setSelectedItem(item);
   };
-  console.log(selectedItem, 'item');
 
   return (
     <div className={styles.wrapper}>

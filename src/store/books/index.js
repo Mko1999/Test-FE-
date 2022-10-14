@@ -8,7 +8,6 @@ const initialState = {
   selectedSubject: '',
   books: [],
   selectedBook: {},
-  showModal: false,
 };
 
 export const BooksSlice = createSlice({
@@ -23,13 +22,6 @@ export const BooksSlice = createSlice({
     },
     chooseBook(state, action) {
       state.selectedBook = action.payload;
-    },
-    openModal(state) {
-      state.showModal = true;
-    },
-    closeModal(state) {
-      state.showModal = false;
-      state.selectedBook = null;
     },
   },
   extraReducers: (builder) => {

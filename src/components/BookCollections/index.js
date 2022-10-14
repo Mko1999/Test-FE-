@@ -1,12 +1,10 @@
 import styles from './styles.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {bookState} from '../../store/books';
-import BookItem from '../BookItem';
+import {BookItem} from '../index';
 import {useState} from 'react';
 
 const BookCollections = () => {
-  const dispatch = useDispatch();
-
   const bookSelector = useSelector(bookState);
 
   const {books} = bookSelector;

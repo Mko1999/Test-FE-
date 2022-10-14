@@ -17,7 +17,7 @@
     align-items: center;
     padding: 4px 8px;
     .title{
-        font-size: 14px;
+        font-size: 16px;
         text-decoration: underline;
     }
     .value{
@@ -37,7 +37,7 @@
     padding: 4px 8px;
 
     .title{
-      font-size: 14px;
+      font-size: 16px;
       text-decoration: underline;
     }
     .value{
@@ -57,7 +57,7 @@
     padding: 4px 8px;
 
     .title{
-      font-size: 14px;
+      font-size: 16px;
       text-decoration: underline;
     }
     .value{
@@ -73,39 +73,29 @@
 
 .modal{
   width: 100%;
-  height: 100vh;
-  position: fixed;
+  min-height: 100vh;
+  height: 100%;
+  position: absolute;
   z-index: 30;
   top: 0;
   left: 0;
-  //background: #1a1a1a;
+  background: azure;
 
-  .close{
-    position: absolute;
-    right: 24px;
-    top: 24px;
-    font-size: 32px;
-    background: transparent;
-  }
-
-  .modalWrapper{
-    position: absolute;
-    top: 24px;
-    left: 24px;
+  .modalHeader{
+    margin-top: 24px;
+    padding: 0 24px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     .edit{
-      font-size: 24px;
-      //color: coral;
+      font-size: 28px;
     }
+  }
 
-    .form{
-        margin-top: 24px;
-        display: flex;
-        flex-direction: column;
-
-        .input{
-          border: 1px solid red;
-        }
-    }
+  .close{
+    font-size: 32px;
+    background: transparent;
   }
 }
