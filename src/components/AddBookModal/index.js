@@ -9,7 +9,6 @@ const AddBookModal = () => {
   const addBook = useSelector(editBookState);
 
   const [inputValues, setInputValues] = useState(addBook);
-  console.log(inputValues, 'values');
 
   const saveData = async (e) => {
     e.preventDefault();
@@ -24,7 +23,6 @@ const AddBookModal = () => {
   };
 
   const handleInputChange = (e) => {
-    console.log(e, 'e');
     if (e) {
       const newObj = _.cloneDeep(inputValues);
       let name = e.target.name.split(' ');

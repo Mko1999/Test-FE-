@@ -1,14 +1,11 @@
-import {BookCollections, BookModal, BookSelect, Header} from './components';
+import {BookCollections, BookSelect, Header} from './components';
 
-function App() {
-  return (
-    <div>
-      <Header />
-      <BookSelect />
-      <BookCollections />
-      {/*<EditBookModal />*/}
-    </div>
-  );
-}
+const App = () => (
+  <div>
+    <Header />
+    <BookSelect />
+    <BookCollections />
+  </div>
+);
 
 export default App;

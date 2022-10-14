@@ -17,13 +17,6 @@ export const EditBookSlice = createSlice({
   name: EditBookReducer,
   initialState,
   reducers: {
-    updateChange: (state, action) => {
-      const {payload} = action;
-      return {
-        ...state,
-        [payload.name]: payload.value,
-      };
-    },
     cleanState: (state, action) => {
       return {
         ...state,
